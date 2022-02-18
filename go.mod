@@ -1,3 +1,3 @@
-module xImouto/lexAnago
+module github.com/xImouto/LexAnaGo
 
 go 1.17
