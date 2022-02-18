@@ -7,8 +7,8 @@ if ( a > b)
 c = a - b;
 e = d - 2.0;
 }
-else
+else if (a == b) 
 {
-d = e + 6.0;
-b = a + c;
+d += e + 6.0;
+b++
 }
