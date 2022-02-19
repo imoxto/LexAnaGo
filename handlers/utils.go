@@ -12,11 +12,11 @@ func IndexOf(element string, data []string) int {
 }
 
 // constant slices
-var Keywords = []string{"int", "float", "double", "boolean", "string", "if", "else", "while", "for", "do", "continue", "break", "return", "else if"}
-var Seperators = []string{";", " ", ",", "[", "{", "(", ")", "}", "]", "=", "<", ">", "+", "-", "*", "/", "%", "!", "|", "&", "\n", "\r"}
+var Keywords = []string{"int", "float", "double", "boolean", "string", "void", "if", "else", "while", "for", "do", "continue", "break", "return", "else if"}
+var Seperators = []string{";", " ", ",", "[", "{", "(", ")", "}", "]", "=", "<", ">", "+", "-", "*", "/", "%", "!", "|", "&", "\n", "\r", "\""}
 var LogicalOperators = []string{"<", ">", "==", "!=", "<=", ">=", "||", "&&"}
 var MathOperators = []string{"+", "-", "*", "/", "%", "=", "+=", "-=", "++", "--"}
-var PairSeperators = []string{"+=", "-=", "++", "--", "==", "!=", "<=", ">=", "||", "&&", "//"}
+var PairSeperators = []string{"+=", "-=", "++", "--", "==", "!=", "<=", ">=", "||", "&&", "//", "/*"}
 var Digits = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
 
 // checker functions below

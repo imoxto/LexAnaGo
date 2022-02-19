@@ -11,6 +11,8 @@ type LexAnalyzeResult struct {
 	MathOperators    []string
 	LogicalOperators []string
 	NumericalValues  []string
+	StringValues     []string
+	Comments         []string
 	Others           []string
 }
 
@@ -30,6 +32,12 @@ func (l *LexAnalyzeResult) Display() {
 	if len(l.NumericalValues) > 0 {
 		fmt.Printf("NumericalValues: %v \n", strings.Join(l.NumericalValues, ", "))
 	}
+	if len(l.StringValues) > 0 {
+		fmt.Printf("StringValues: %v \n", strings.Join(l.StringValues, ", "))
+	}
+	if len(l.Comments) > 0 {
+		fmt.Printf("Comments: %v \n", strings.Join(l.Comments, ", "))
+	}
 	if len(l.Others) > 0 {
 		fmt.Printf("Others: %v \n", strings.Join(l.Others, ""))
 	}
@@ -48,13 +56,30 @@ func (l *LexAnalyzeResult) Analyze(s string) {
 
 	for right <= n && left <= right {
 		rightChar := string(s[right])
+		seperated := IsSeperator(rightChar)
 
-		if IsSeperator(rightChar) && right == left && right+1 <= n && IsPairSeperator(s[right:right+2]) {
+		if seperated && right == left && right+1 <= n && IsPairSeperator(s[right:right+2]) {
 			// enters here on seeing a valid PairSeperator
 
 			testStr := s[right : right+2]
+			right += 2
+			left = right
 
-			if IsLogicOp(testStr) {
+			if testStr == "//" {
+				for s[right] != '\r' && s[right] != '\n' && right+1 <= n {
+					right += 1
+				}
+				l.Comments = append(l.Comments, s[left:right])
+				right += 1
+				left = right
+			} else if testStr == "/*" {
+				for right+2 <= n && s[right:right+2] != "*/" {
+					right += 1
+				}
+				l.Comments = append(l.Comments, s[left:right])
+				right += 1
+				left = right
+			} else if IsLogicOp(testStr) {
 				if IndexOf(testStr, l.LogicalOperators) == -1 {
 					// nested if to avoid checking else if when this condition fails
 					l.LogicalOperators = append(l.LogicalOperators, testStr)
@@ -63,13 +88,18 @@ func (l *LexAnalyzeResult) Analyze(s string) {
 				l.MathOperators = append(l.MathOperators, testStr)
 			}
 
-			right += 2
-			left = right
-
-		} else if IsSeperator(rightChar) && right == left {
+		} else if seperated && right == left {
 			// enters here on seeing a valid seperator
 
-			if IsLogicOp(rightChar) {
+			if rightChar == "\"" {
+				right = right + 1
+				for s[right] != '"' && right <= n {
+					right += 1
+				}
+				l.StringValues = append(l.StringValues, s[left:right+1])
+				right += 1
+				left = right
+			} else if IsLogicOp(rightChar) {
 				if IndexOf(rightChar, l.LogicalOperators) == -1 {
 					// nested if to avoid checking else if when this condition fails
 					l.LogicalOperators = append(l.LogicalOperators, rightChar)
@@ -84,7 +114,7 @@ func (l *LexAnalyzeResult) Analyze(s string) {
 			right++
 			left = right
 
-		} else if IsSeperator(rightChar) && right > left {
+		} else if seperated && right > left {
 			// enters here after each token has been seperated
 
 			testStr := s[left:right]
