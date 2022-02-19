@@ -35,13 +35,7 @@ func (l *LexAnalyzeResult) Display() {
 	}
 }
 
-func (l *LexAnalyzeResult) Analyze(lines []string) {
-	for _, v := range lines {
-		l.AnalyzeLine(v)
-	}
-}
-
-func (l *LexAnalyzeResult) AnalyzeLine(s string) {
+func (l *LexAnalyzeResult) Analyze(s string) {
 
 	s += " " // added space to seperate the last char or token
 
@@ -84,7 +78,7 @@ func (l *LexAnalyzeResult) AnalyzeLine(s string) {
 					// nested if to avoid checking else if when this condition fails
 					l.MathOperators = append(l.MathOperators, rightChar)
 				}
-			} else if rightChar != " " && IndexOf(rightChar, l.Others) == -1 {
+			} else if rightChar != " " && rightChar != "\n" && rightChar != "\r" && IndexOf(rightChar, l.Others) == -1 {
 				l.Others = append(l.Others, rightChar)
 			}
 			right++
@@ -94,10 +88,12 @@ func (l *LexAnalyzeResult) AnalyzeLine(s string) {
 			// enters here after each token has been seperated
 
 			testStr := s[left:right]
-			if testStr == "else" && right+3 <= n && s[left:right+3] == "else if" {
-				right += 3
-				testStr = s[left:right]
-			}
+
+			// uncomment if "else if" should be detected seperately
+			// if testStr == "else" && right+3 <= n && s[left:right+3] == "else if" {
+			// 	right += 3
+			// 	testStr = s[left:right]
+			// }
 
 			if IsKeyword(testStr) {
 				if IndexOf(testStr, l.Keywords) == -1 {

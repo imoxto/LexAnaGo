@@ -13,7 +13,7 @@ func IndexOf(element string, data []string) int {
 
 // constant slices
 var Keywords = []string{"int", "float", "double", "boolean", "string", "if", "else", "else if", "while", "for", "do", "continue", "break", "return"}
-var Seperators = []string{";", " ", ",", "[", "{", "(", ")", "}", "]", "=", "<", ">", "+", "-", "*", "/", "%", "!", "|", "&"}
+var Seperators = []string{";", " ", ",", "[", "{", "(", ")", "}", "]", "=", "<", ">", "+", "-", "*", "/", "%", "!", "|", "&", "\n", "\r"}
 var LogicalOperators = []string{"<", ">", "==", "!=", "<=", ">=", "||", "&&"}
 var MathOperators = []string{"+", "-", "*", "/", "%", "=", "+=", "-=", "++", "--"}
 var PairSeperators = []string{"+=", "-=", "++", "--", "==", "!=", "<=", ">=", "||", "&&", "//"}

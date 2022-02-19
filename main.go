@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"strings"
 
 	"github.com/xImouto/LexAnaGo/handlers"
 )
@@ -18,7 +17,6 @@ func main() {
 	}
 
 	res := handlers.LexAnalyzeResult{}
-	dataInArray := strings.Split(string(data), "\n")
-	res.Analyze(dataInArray)
+	res.Analyze(string(data))
 	res.Display()
 }
