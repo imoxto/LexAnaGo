@@ -35,6 +35,7 @@ func (l *LexAnalyzeResult) Display() {
 	}
 }
 
+// Analyses a string and saves the tokens on its suitable slices
 func (l *LexAnalyzeResult) Analyze(s string) {
 
 	s += " " // added space to seperate the last char or token
@@ -75,7 +76,6 @@ func (l *LexAnalyzeResult) Analyze(s string) {
 				}
 			} else if IsMathOp(rightChar) {
 				if IndexOf(rightChar, l.MathOperators) == -1 {
-					// nested if to avoid checking else if when this condition fails
 					l.MathOperators = append(l.MathOperators, rightChar)
 				}
 			} else if rightChar != " " && rightChar != "\n" && rightChar != "\r" && IndexOf(rightChar, l.Others) == -1 {
@@ -89,7 +89,7 @@ func (l *LexAnalyzeResult) Analyze(s string) {
 
 			testStr := s[left:right]
 
-			// uncomment if "else if" should be detected seperately
+			// uncomment below lines if "else if" should be detected seperately
 			// if testStr == "else" && right+3 <= n && s[left:right+3] == "else if" {
 			// 	right += 3
 			// 	testStr = s[left:right]
@@ -102,12 +102,10 @@ func (l *LexAnalyzeResult) Analyze(s string) {
 				}
 			} else if IsIdentifier(testStr) {
 				if IndexOf(testStr, l.Identifiers) == -1 {
-					// nested if to avoid checking else if when this condition fails
 					l.Identifiers = append(l.Identifiers, testStr)
 				}
 			} else if IsNumber(testStr) {
 				if IndexOf(testStr, l.NumericalValues) == -1 {
-					// nested if to avoid checking else if when this condition fails
 					l.NumericalValues = append(l.NumericalValues, testStr)
 				}
 			}
