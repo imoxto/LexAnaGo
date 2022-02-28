@@ -93,8 +93,12 @@ func (l *LexAnalyzeResult) Analyze(s string) {
 
 			if rightChar == "\"" {
 				right = right + 1
-				for s[right] != '"' && right <= n {
-					right += 1
+				for s[right] != '"' && right+1 <= n {
+					if s[right] == '\\' && right+2 <= n {
+						right += 2
+					} else {
+						right += 1
+					}
 				}
 				l.StringValues = append(l.StringValues, s[left:right+1])
 				right += 1
