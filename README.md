@@ -1,8 +1,16 @@
 ###### LexAnaGo
 
-#### About
+#### Navigation
 
-A lexical analyser written in go
+Concerned file lists for navigation
+
+# Lab_1
+
+- handlers/lexAna.go
+
+# Lab_2
+
+- handlers/web.go
 
 #### How to run
 

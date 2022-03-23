@@ -6,7 +6,8 @@ import (
 	"github.com/xImouto/LexAnaGo/handlers"
 )
 
-func main() {
+// driver code for lab 2 (copy to root dir and rename funtion name to main and file name to main.go)
+func Lab_2() {
 	var n int
 	fmt.Scanln(&n)
 

@@ -10,6 +10,14 @@ func IndexOf(element string, data []string) int {
 	}
 	return -1
 }
+func IndexOfInt(element int, data []int) int {
+	for k, v := range data {
+		if element == v {
+			return k
+		}
+	}
+	return -1
+}
 
 // constant slices
 var Keywords = []string{"int", "float", "double", "boolean", "string", "void", "if", "else", "while", "for", "do", "continue", "break", "return", "else if"}
